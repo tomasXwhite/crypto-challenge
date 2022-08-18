@@ -1,0 +1,12 @@
+import {createStore, applyMiddleware} from "redux"
+import thunk from "redux-thunk";
+import cryptoReducer from "../reducer/reducer";
+
+
+const store = createStore(
+    cryptoReducer,              //reducer
+    applyMiddleware(thunk)        
+
+);
+
+export default store
