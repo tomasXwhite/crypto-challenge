@@ -3,7 +3,8 @@
 
 
 const initialState = {
-    crypto: [],
+    cryptoDetail: {},
+    cryptos: [],
     favCrypto: []
 }
 
@@ -14,6 +15,11 @@ const cryptoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 favCrypto : state.favCrypto.concat(action.payload)
+            }
+        case "GET_CRYPTOS": 
+            return {
+                ...state,
+                cryptos: action.payload
             }
         default:
             return state
