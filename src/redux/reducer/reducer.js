@@ -4,22 +4,41 @@
 
 const initialState = {
     cryptoDetail: {},
-    cryptos: [],
+    cryptos: ["btc",
+    "bch",
+    "eth",
+    "ltc",
+    "trx",
+    "xmr"],
     favCrypto: []
 }
 
 
 const cryptoReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "GET_FAV_CRYPTO":
+        case "GET_CRYPTO_INFO":
             return {
                 ...state,
-                favCrypto : state.favCrypto.concat(action.payload)
+                cryptoDetail : action.payload
             }
-        case "GET_CRYPTOS": 
+        case "ADD_TO_FAV": 
+        console.log(action.payload)
+        if(action.payload.amount === 0 ) console.log("soy 0")
             return {
                 ...state,
-                cryptos: action.payload
+                favCrypto: state.favCrypto.concat(action.payload)
+            }
+        case "DELETE_FAV": 
+        console.log(state.favCrypto, action.payload)
+            return {
+                ...state,
+                favCrypto: state.favCrypto.filter((c) => c.crypto.coin !== action.payload)
+            }
+        case "CLEAR_CRYPTO_INFO": 
+        console.log("limpiar")
+            return {
+                ...state,
+                cryptoDetail: {}
             }
         default:
             return state
