@@ -1,54 +1,57 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCryptos } from '../../redux/actions/actions'
+// import { getCryptos } from '../../redux/actions/actions'
 import CryptoCard from '../CryptoCard/cryptoCard'
+import { hardcodedCoins } from '../../assets/data'
+import "./browser.css"
+import { Link } from 'react-router-dom'
 
 
 export default function Browser() {
-    const firstRenderRef = useRef(true);
+    // const firstRenderRef = useRef(true);
 const {cryptos} = useSelector((state) => state)
-const dispatch = useDispatch()
+// const dispatch = useDispatch()
 
-useEffect(() => {
-    if (firstRenderRef.current) {
-        firstRenderRef.current = false;
-        return;
-    } 
-        dispatch(getCryptos)
+// useEffect(() => {
+    // if (firstRenderRef.current) {
+        // firstRenderRef.current = false;
+        // return;
+    // } 
+        // dispatch(getCryptos)
 
     
-    console.log(cryptos)
-}, [ ])
+    // console.log(cryptos)
+// }, [ ])
 
     return (
 
 
         <div>
-            Search a new crypto!aaa
+            <h2>Search a new Crypto!</h2>
 
             <br></br>
-            <input type='text' />
+            <input type='text' className='search'/>
             <br></br>
-            <div className="containerCards">
+            <div className="w-1">
                 {
 
 cryptos?.length > 0 ?
                         // console.log(favCrypto)
                         cryptos.map(c => {
                             return (
-
+                                <Link to={`/home/browser/${c}`}>
                                 <CryptoCard
-                                    key={c[ticker].network_fee_estimation}
-                                    coin={c[ticker].coin}
-                                    price={c.prices.USD}
-                                    logo={c.logo}
+                                    key={c}
+                                    coin={c}
+                                  
 
                                 />
+                                </Link>
                             )
                         })
 
-                        : <p>Loading...</p>
+                        : <p></p>
                 }
             </div>
         </div>
