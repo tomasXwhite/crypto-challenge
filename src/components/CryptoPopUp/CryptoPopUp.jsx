@@ -5,14 +5,16 @@ import { getCryptoInfo, clearCryptoInfo } from "../../redux/actions/actions"
 import { useParams } from "react-router-dom"
 import "../Browser/browser.css"
 import { addToFav } from "../../redux/actions/actions"
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function CryptoPopUp() {
 const history = useHistory()
 const dispatch = useDispatch()
 const firstRenderRef = useRef(true);
 const {crypto} = useParams()
+const {search} = useLocation()
 const {cryptoDetail} = useSelector((state) => state)
+const cryptoCoin = search.split("?")[1]
 
 const [amount, setAmount] = useState("")
     useEffect(() => {
@@ -20,7 +22,7 @@ const [amount, setAmount] = useState("")
             firstRenderRef.current = false;
             return;
         } 
-            dispatch(getCryptoInfo(crypto))
+            dispatch(getCryptoInfo(crypto, cryptoCoin))
         return () => dispatch(clearCryptoInfo)
         
         
@@ -32,7 +34,7 @@ const [amount, setAmount] = useState("")
     const handleFav = (e) => {
         // if(amount === "") setAmount(0)
         dispatch(addToFav(cryptoDetail, amount === "" ? 0 : amount))
-        setAmount("")
+        setAmount(" ")
         
 
     }

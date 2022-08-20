@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState, useRef } from "react"
 import CryptoCard from "../CryptoCard/cryptoCard"
 import { Link } from "react-router-dom"
+import { Button, Modal, Box, Typography } from "@mui/material"
+// import Modal from "@mui/material"
 
 
 export default function Home() {
@@ -12,7 +14,7 @@ export default function Home() {
     const dispatch = useDispatch()
 
     const handleTest = () => {
-
+        dispatch(getInfo)
         // console.log(estado, "asdfasfasd")
     }
 
@@ -28,12 +30,13 @@ export default function Home() {
 
     return (
         <div>
+            <button onClick={() => handleTest()}>TEST</button>
             <h1 className="text-3xl font-bold underline">FAVOURITE CRYPTO LIST</h1> 
             <Link to='/home/browser' >
             <div>
                 Click here to add cryptos to FAV {"<3"} 
             </div>
-                <button onClick={() => handleTest()} >+</button>
+                <button >+</button>
                 </Link>
             <br></br>
             <div className="bg-red">
@@ -50,6 +53,7 @@ export default function Home() {
                                     price={c.crypto.prices.USD}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
+                                    ticket={c.ticker}
 
                                 />
                                 
@@ -58,7 +62,13 @@ export default function Home() {
 
                         : null
                 }
+                
             </div>
+
+
+
+
+
         </div>
     )
 }

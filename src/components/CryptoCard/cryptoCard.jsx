@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { deleteFav } from "../../redux/actions/actions"
 
 
-export default function CryptoCard({coin, price, logo, amount}) {
+export default function CryptoCard({coin, price, logo, amount, ticker}) {
 
     const dispatch = useDispatch()
 
@@ -15,7 +15,7 @@ export default function CryptoCard({coin, price, logo, amount}) {
 
     return(
         <div>
-            <h2>{coin}</h2>
+            <h2>{`${coin} (${ticker})`}</h2>
             <img src={logo}/>
             <h4>{price}</h4>
             {
