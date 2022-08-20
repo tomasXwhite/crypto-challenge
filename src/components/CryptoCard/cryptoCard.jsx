@@ -1,11 +1,12 @@
 import React from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { deleteFav } from "../../redux/actions/actions"
 
 
 export default function CryptoCard({coin, price, logo, amount, ticker}) {
 
     const dispatch = useDispatch()
+    const {currency} = useSelector((state) => state)
 
     const handleDelete = () => {
         console.log("DELETE", coin)
@@ -17,7 +18,11 @@ export default function CryptoCard({coin, price, logo, amount, ticker}) {
         <div>
             <h2>{`${coin} (${ticker})`}</h2>
             <img src={logo}/>
-            <h4>{price}</h4>
+            {
+                price ?
+                <h4>Price:  {currency} {price}</h4>
+                : null
+            }
             {
                 amount>=0 ? 
                 <p>Amount: {amount}</p>

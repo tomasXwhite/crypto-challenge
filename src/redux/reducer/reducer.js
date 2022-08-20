@@ -11,7 +11,8 @@ const initialState = {
         all: []
     },
     toFilter: [],
-    favCrypto: []
+    favCrypto: [],
+    currency: "USD"
 }
 
 
@@ -105,8 +106,19 @@ const cryptoReducer = (state = initialState, action) => {
                     ...state,
                     cryptos: filtredArr
                 }
+
+
                 // return state
             }
+            case "CHANGE_CURRENCY":
+                if(action.payload === "USD" || action.payload ==="EUR" || action.payload ==="AED") {
+                    console.log("reducer currency:",action.payload)
+                    return {
+                        ...state,
+                        currency: action.payload
+                    }
+
+                }
         default:
             return state
 

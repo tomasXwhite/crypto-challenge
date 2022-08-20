@@ -13,7 +13,7 @@ const dispatch = useDispatch()
 const firstRenderRef = useRef(true);
 const {crypto} = useParams()
 const {search} = useLocation()
-const {cryptoDetail} = useSelector((state) => state)
+const {cryptoDetail, currency} = useSelector((state) => state)
 const cryptoCoin = search.split("?")[1]
 
 const [amount, setAmount] = useState("")
@@ -60,7 +60,8 @@ const [amount, setAmount] = useState("")
             <h1>crypto info:</h1>
             <h1>{cryptoDetail.coin}</h1>
             <img src={cryptoDetail.logo}/>
-            <h3>Price: U$$ {cryptoDetail.prices.USD}</h3>
+            <h3>Price: {currency} {cryptoDetail.prices[currency]}</h3>
+            {console.log(cryptoDetail, currency)}
 
 
             <br></br>
