@@ -7,7 +7,7 @@ import "../Browser/browser.css"
 import { addToFav } from "../../redux/actions/actions"
 import { useHistory, useLocation } from "react-router-dom";
 
-export default function CryptoPopUp() {
+export default function CryptoPopUp({ticker, type}) {
 const history = useHistory()
 const dispatch = useDispatch()
 const firstRenderRef = useRef(true);
@@ -23,10 +23,10 @@ const [amount, setAmount] = useState("")
             return;
         } 
             dispatch(getCryptoInfo(crypto, cryptoCoin))
+            // dispatch(getCryptoInfo(type, ticker))
         return () => dispatch(clearCryptoInfo)
         
         
-        console.log(cryptoDetail)
     }, [ ])
 
 
@@ -55,7 +55,7 @@ const [amount, setAmount] = useState("")
         <div>
             <button onClick={() => handleReturn()}>{`<= Home`}</button>
             {
-        cryptoDetail.coin ? 
+        cryptoDetail.logo ? 
         <div>
             <h1>crypto info:</h1>
             <h1>{cryptoDetail.coin}</h1>

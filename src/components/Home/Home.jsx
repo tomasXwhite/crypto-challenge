@@ -6,28 +6,40 @@ import CryptoCard from "../CryptoCard/cryptoCard"
 import { Link } from "react-router-dom"
 import { Button, Modal, Box, Typography } from "@mui/material"
 // import Modal from "@mui/material"
+import { addToFav } from "../../redux/actions/actions"
 
 
 export default function Home() {
     const firstRenderRef = useRef(true);
     const favCrypto = useSelector((state) => state.favCrypto)
     const dispatch = useDispatch()
+    const [favs, setFavs] = useState(favCrypto)
 
     const handleTest = () => {
-        dispatch(getInfo)
+        // dispatch(getInfo)
         // console.log(estado, "asdfasfasd")
     }
 
     useEffect(() => {
+        console.log(firstRenderRef.current)
         if (firstRenderRef.current) {
             firstRenderRef.current = false;
+            // dispatch(addToFav())
             return;
         }
-        // dispatch(getFavCrypto)
-
-        // console.log(favCrypto)
+        // setFavs(...favs, handleStorage())
+        dispatch(addToFav())
+        
     }, [])
+    
+    
+    const handleStorage = () => {
+        // let res = JSON.parse(localStorage.getItem("cryptoFav"))
+        // setFavs(res)
+        // favCrypto= res 
+        // console.log(favCrypto)
 
+    }
     return (
         <div>
             <button onClick={() => handleTest()}>TEST</button>
@@ -42,7 +54,7 @@ export default function Home() {
             <div className="bg-red">
                 {
 
-                    favCrypto?.length > 0 ?
+favCrypto?.length > 0 ?
                         // console.log(favCrypto)
                         favCrypto.map(c => {
                             return (
@@ -53,7 +65,7 @@ export default function Home() {
                                     price={c.crypto.prices.USD}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
-                                    ticket={c.ticker}
+                                    ticker={c.ticker}
 
                                 />
                                 
