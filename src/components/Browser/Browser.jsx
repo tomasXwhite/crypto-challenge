@@ -30,23 +30,14 @@ useEffect(() => {
 }, [ ])
 
 useEffect(() => {
-    // cryptos.filter((c) => c.coin.includes(query))
-    // var time 
-    // clearTimeout(time);
-//   time = setTimeout(() => {
-     
-    //   dispatch(getCryptos)
+    
       dispatch(filterCrypto(query))
-    // }, 800);
 
 }, [ query ])
 
 const handleCryptoChange = (e) => {
     if(e.target.value === 0 ) setQuery("")
     else setQuery(e.target.value)
-    // setTimeout(() => {
-        // cryptos = cryptos.filter(c => !c.coin.includes(e.target.value)).concat()
-    // }, 800);
 }
 console.log(cryptos)
 const handleFilter = (e) => {

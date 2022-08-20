@@ -55,8 +55,10 @@ export const getCryptos = async (dispatch) => {
 
 
 export const addToFav = (crypto, amount) => async (dispatch) => {
+    if(!crypto && !amount) return dispatch({type: "GET_FAV"})
     console.log(crypto, amount)
     return dispatch({type: "ADD_TO_FAV", payload: {crypto, amount}})
+    
 }
 export const deleteFav = (crypto) => async (dispatch) => {
     console.log(crypto)
