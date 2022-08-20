@@ -76,3 +76,7 @@ export const clearCryptoInfo = async(dispatch) => {
 export const filterCrypto = (value) => async(dispatch) => {
     return dispatch({type: "FILTER", payload: value})
 }
+export const changeCurrency = (value) => async(dispatch) => {
+    return dispatch({type: "CHANGE_CURRENCY", payload: value})
+}
+

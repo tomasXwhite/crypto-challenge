@@ -9,7 +9,6 @@ function App() {
 
   return (
    <div>
-    
     <Route exact path='/home' component={Home} />
     <Route exact path='/home/browser' component={Browser}/>
     <Route exact path='/home/browser/:crypto' component={CryptoPopUp}/>

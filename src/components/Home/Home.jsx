@@ -1,80 +1,88 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 // import { getFavCrypto } from "../../redux/actions/actions"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, Fragment} from "react"
 import CryptoCard from "../CryptoCard/cryptoCard"
 import { Link } from "react-router-dom"
-import { Button, Modal, Box, Typography } from "@mui/material"
-// import Modal from "@mui/material"
-import { addToFav } from "../../redux/actions/actions"
+import { addToFav, changeCurrency } from "../../redux/actions/actions"
+
+
+
+
+import MySelector from "../Selector/Selector"
 
 
 export default function Home() {
     const firstRenderRef = useRef(true);
-    const favCrypto = useSelector((state) => state.favCrypto)
+    const { favCrypto, currency } = useSelector((state) => state)
     const dispatch = useDispatch()
-    const [favs, setFavs] = useState(favCrypto)
+    const [curren, setCurren] = useState("USD")
 
-    const handleTest = () => {
-        // dispatch(getInfo)
-        // console.log(estado, "asdfasfasd")
-    }
 
     useEffect(() => {
         console.log(firstRenderRef.current)
         if (firstRenderRef.current) {
             firstRenderRef.current = false;
-            // dispatch(addToFav())
             return;
         }
-        // setFavs(...favs, handleStorage())
         dispatch(addToFav())
-        
+
     }, [])
-    
-    
-    const handleStorage = () => {
-        // let res = JSON.parse(localStorage.getItem("cryptoFav"))
-        // setFavs(res)
-        // favCrypto= res 
-        // console.log(favCrypto)
+    useEffect(() => {
+        dispatch(changeCurrency(curren))
+    }, [curren])
+
+
+    const handleCurrency = (e) => {
+        setCurren(e)
+
 
     }
+
+    const currencies = ["USD", "EUR", "AED"]
     return (
         <div>
-            <button onClick={() => handleTest()}>TEST</button>
-            <h1 className="text-3xl font-bold underline">FAVOURITE CRYPTO LIST</h1> 
+
+            <h1 className="text-3xl font-bold underline">FAVOURITE CRYPTO LIST</h1>
             <Link to='/home/browser' >
-            <div>
-                Click here to add cryptos to FAV {"<3"} 
-            </div>
+                <div>
+                    Click here to add cryptos to FAV {"<3"}
+                </div>
                 <button >+</button>
-                </Link>
+            </Link>
             <br></br>
+
+
+<MySelector 
+handle={handleCurrency}
+arr={currencies}
+optional={"Select currency"}
+/>
+     
+
             <div className="bg-red">
                 {
 
-favCrypto?.length > 0 ?
-                        // console.log(favCrypto)
+                    favCrypto?.length > 0 ?
                         favCrypto.map(c => {
                             return (
 
                                 <CryptoCard
                                     key={c.crypto.network_fee_estimation}
                                     coin={c.crypto.coin}
-                                    price={c.crypto.prices.USD}
+                                    price={c.crypto.prices[currency]}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
                                     ticker={c.ticker}
 
                                 />
-                                
+
                             )
                         })
-
                         : null
+
                 }
-                
+
             </div>
 
 
