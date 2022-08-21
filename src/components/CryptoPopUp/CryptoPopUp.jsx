@@ -22,6 +22,7 @@ const [amount, setAmount] = useState("")
             firstRenderRef.current = false;
             return;
         } 
+        console.log(crypto, search)
             dispatch(getCryptoInfo(crypto, cryptoCoin))
             // dispatch(getCryptoInfo(type, ticker))
         return () => dispatch(clearCryptoInfo)

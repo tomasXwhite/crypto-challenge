@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, Fragment} from "react"
 import CryptoCard from "../CryptoCard/cryptoCard"
 import { Link } from "react-router-dom"
 import { addToFav, changeCurrency } from "../../redux/actions/actions"
+import MyFragment from "../Fragment/Fragment"
 
 
 
@@ -44,13 +45,19 @@ export default function Home() {
         <div>
 
             <h1 className="text-3xl font-bold underline">FAVOURITE CRYPTO LIST</h1>
-            <Link to='/home/browser' >
+            {/* <Link to='/home/browser' > */}
                 <div>
                     Click here to add cryptos to FAV {"<3"}
                 </div>
-                <button >+</button>
-            </Link>
+                
+                
+                
+            {/* </Link> */}
             <br></br>
+                <MyFragment 
+
+                
+                />
 
 
 <MySelector 
@@ -60,7 +67,7 @@ optional={"Select currency"}
 />
      
 
-            <div className="bg-red">
+            <div className="flex flex-row justify-center">
                 {
 
                     favCrypto?.length > 0 ?

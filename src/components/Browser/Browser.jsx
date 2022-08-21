@@ -1,11 +1,23 @@
 import React from 'react'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCryptos, filterCrypto, clearCryptoInfo } from '../../redux/actions/actions'
 import CryptoCard from '../CryptoCard/cryptoCard'
 import "./browser.css"
 import { Link } from 'react-router-dom'
 import MySelector from '../Selector/Selector'
+import MyFragment from '../Fragment/Fragment'
+import {
+    Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+  } from "@material-tailwind/react";
+
+
+
+
 
 // import {
 //     Tabs,
@@ -21,11 +33,14 @@ import { Input } from '@material-tailwind/react'
 
 export default function Browser() {
     const firstRenderRef = useRef(true);
-    let { cryptos } = useSelector((state) => state)
+    const { cryptos, currency } = useSelector((state) => state)
     const dispatch = useDispatch()
     const [query, setQuery] = useState("")
     const [filter, setFilter] = useState("all")
 
+
+
+  
 
 
     useEffect(() => {
@@ -63,6 +78,7 @@ export default function Browser() {
 
 
         <div >
+            <DialogHeader>
             <h2>Search a new Crypto!</h2>
 
             <br></br>
@@ -78,16 +94,16 @@ export default function Browser() {
 
 
 
-
-
-            <div >
+</DialogHeader>
+            <div className='bg' >
                 {
 
                     cryptos[filter]?.length > 0 ?
                         // console.log(favCrypto)
                         cryptos[filter].map(c => {
+                            // let price = c.prices ? c.prices[currency] : null
                             return (
-                                <Link to={`/home/browser/${c.type}?${c.ticker}`}>
+                                <Link to={`/home/info/${c.type}?${c.ticker}`}>
                                     <CryptoCard
                                         key={c.coin}
                                         coin={c.coin}
@@ -96,6 +112,15 @@ export default function Browser() {
 
                                     />
                                 </Link>
+                                // <MyFragment 
+                                // key={c.coin}
+                                // coin={c.coin}
+                                // ticker={c.ticker}
+                                // logo={c.logo}
+                                // price={c.prices ? c.prices[currency] : null}
+                                // type={c.type}
+                                
+                                // />
                             )
                         })
 

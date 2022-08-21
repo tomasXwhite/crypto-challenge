@@ -11,7 +11,7 @@ function App() {
    <div>
     <Route exact path='/home' component={Home} />
     <Route exact path='/home/browser' component={Browser}/>
-    <Route exact path='/home/browser/:crypto' component={CryptoPopUp}/>
+    <Route exact path='/home/info/:crypto' component={CryptoPopUp}/>
    </div>
   )
 }
