@@ -15,7 +15,7 @@ export default function CryptoCard({coin, price, logo, amount, ticker}) {
 
 
     return(
-        <div className='border-2 rounded-xl shadow-lg m-2 w-52'>
+        <div className='border-2 rounded-xl shadow-lg m-2 w-58  transform transition duration-500 hover:scale-110'>
             <h2>{`${coin} (${ticker})`}</h2>
             <img src={logo} className='w-60 p-5 justify-center'/>
             {

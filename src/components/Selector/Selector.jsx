@@ -8,7 +8,7 @@ export default function MySelector({handle, arr, optional}) {
 
 
     return(
-        <div className=" border-none focus:ring-0">
+        <div className=" border-none focus:ring-0 justify-center align-center mb-2.5">
          <Select
         label={optional}
         animate={{

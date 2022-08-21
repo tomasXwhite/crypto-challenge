@@ -94,17 +94,21 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
           unmount: { scale: 0.9, y: -100 },
         }}
         // style={customContentStyle}
-        className='h-modal overflow-y-auto overflow-x-none mb-10 min-w-modal flex '
+        className='h-modal overflow-y-auto overflow-x-none mb-10 min-w-modal flex justify-center'
       >
         {/* <Browser 
 
         /> */}
 <div className='drop-shadow-2xl'>
-        <DialogHeader>
-            <h2>Search a new Crypto!</h2>
+        <DialogHeader className="flex flex-row gap-2 align-center ">
+            <h2 className="justify-center align-center">Search a Crypto!</h2>
 
             <br></br>
-            <Input label='crypto' onChange={(e) => handleCryptoChange(e)} />
+            <Input 
+            label='crypto' 
+            onChange={(e) => handleCryptoChange(e)} 
+            className=''
+            />
             <br></br>
 
 
@@ -112,10 +116,11 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
                 arr={types}
                 handle={handleFilter}
                 optional={"Select type"}
+
             />
             </DialogHeader>
 
-        <DialogBody divider className='flex-1 flex flex-row flex-wrap gap-7 items-center '>
+        <DialogBody divider className='flex-1 flex flex-row flex-wrap gap-7 items-center justify-center'>
          {
              cryptos[filter]?.length > 0 ?
              // console.log(favCrypto)
@@ -123,7 +128,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
                  // let price = c.prices ? c.prices[currency] : null
                  return (
                      <Link to={`/home/info/${c.type}?${c.ticker}`}>
-                          <Card className="w-40 flex h-80 m-3  ">
+                          <Card className="w-56 shadow-lg flex h-80 m-3 border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
       <CardHeader className=" flex h-56 mt-4 p-3 justify-center shadow-none">
         <img
           src={c.logo}
@@ -131,15 +136,15 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
         />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h5" className="mt-3">
+        <Typography variant="h5" className="mt-3 ">
           {`${c.coin} (${c.ticker})`}
         </Typography>
       </CardBody>
-      <CardFooter divider className="flex items-center justify-center py-1">
+      <CardFooter divider className="flex items-center justify-center py-1 gap-10">
         <Typography variant="small" className='flex justify-around '>{currency} {c.prices[currency]}</Typography>
         <Typography variant="small" color="gray" className="flex gap-1">
           <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
-          {c.type}
+          {c.type.toUpperCase()}
         </Typography>
       </CardFooter>
     </Card>
@@ -170,9 +175,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
+          
         </DialogFooter>
       </div>
       </Dialog>
