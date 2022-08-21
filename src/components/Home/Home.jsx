@@ -15,9 +15,9 @@ import MySelector from "../Selector/Selector"
 
 export default function Home() {
     const firstRenderRef = useRef(true);
-    const { favCrypto, currency } = useSelector((state) => state)
+    const { favCrypto, currency, currencies } = useSelector((state) => state)
     const dispatch = useDispatch()
-    const [curren, setCurren] = useState("USD")
+    const [curren, setCurren] = useState(currency)
 
 
     useEffect(() => {
@@ -39,8 +39,8 @@ export default function Home() {
 
 
     }
-
-    const currencies = ["USD", "EUR", "AED", ]
+    const currenciesTest = ["USD", "EUR", "AED", ]
+    console.log(currencies)
     return (
         <div>
             <h1 className="text-5xl font-bold underline mb-3">FAVOURITE CRYPTO LIST</h1>
@@ -67,13 +67,12 @@ optional={"Select currency"}
 />
 </div>
      
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-wrap gap-8 justify-center">
                 {
 
                     favCrypto?.length > 0 ?
                         favCrypto.map(c => {
                             return (
-
                                 <CryptoCard
                                     key={`${c.crypto.ticker}-${c.crypto.type}`}
                                     coin={c.crypto.coin}
@@ -81,7 +80,6 @@ optional={"Select currency"}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
                                     ticker={c.crypto.ticker}
-
                                 />
 
                             )

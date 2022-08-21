@@ -25,7 +25,12 @@ export const getCryptos = async (dispatch) => {
 
 
 export const addToFav = (crypto, amount) => async (dispatch) => {
-    if(!crypto && !amount) return dispatch({type: "GET_FAV"})
+    if(!crypto && !amount) {
+        let prices = await axios.get('https://api.cryptapi.io/btc/info/')
+        prices = await prices.data.prices
+        prices = Object.keys(prices)
+        return dispatch({type: "GET_FAV", payload: prices})
+    }
     console.log(crypto, amount)
     Swal.fire({
         icon: "success",

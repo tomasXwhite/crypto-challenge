@@ -13,7 +13,6 @@ import {
     Typography,
     Input
   } from "@material-tailwind/react";
-  import Browser from "../browser/Browser";
 import { maxHeight } from "@mui/system";
 import { getCryptos, filterCrypto } from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
@@ -67,20 +66,6 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
 
 
 
-
-    const customContentStyle = {
-        // width: '85%',
-        // maxHeight: '80%',
-        // display: 'flex',
-        // flexDirection: 'row',
-        // position: relative,
-        // maxHeight:"auto",
-        
-
-        
-        maxWidth: 'none',
-      };
-
     return (
         <Fragment >
       <Button onClick={handleOpen} variant="gradient" className='mb-3'>
@@ -101,7 +86,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
         /> */}
 <div className='drop-shadow-2xl'>
         <DialogHeader className="flex flex-row gap-2 align-center ">
-            <h2 className="justify-center align-center">Search a Crypto!</h2>
+            <h2 className="justify-center align-center ml-4">Search a Crypto!</h2>
 
             <br></br>
             <Input 

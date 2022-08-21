@@ -13,7 +13,7 @@ const initialState = {
     toFilter: [],
     favCrypto: [],
     currency: "USD",
-    currencies: []
+    currencies: ["USD"]
 }
 
 
@@ -25,7 +25,8 @@ const cryptoReducer = (state = initialState, action) => {
             let bep20 = []
             let trc20 = []
             let erc20 = []
-        
+            
+
         
             for(let prop in response) {
                  if(prop === "bep20") {
@@ -38,27 +39,21 @@ const cryptoReducer = (state = initialState, action) => {
                     let obj = response[prop]
                     for(let cryp in obj) {
                     obj[cryp].type = "trc20"
-                    if(bep20.length>22) {
-                        
                         trc20.push(obj[cryp])
-                    } else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
-                    if(bep20.indexOf(obj[cryp]) < 1) console.log("SI INCLUYE")
                 }
                 } else if(prop === "erc20") {
                     let obj = response[prop]
                     for(let cryp in obj) {
                     obj[cryp].type = "erc20"
-                    if(!bep20.includes(cryp) && !trc20.includes(cryp)) erc20.push(obj[cryp])
-                    else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
+                    erc20.push(obj[cryp])
                     }
                 } 
             
             }
             const all = [...trc20, ...bep20, ...erc20]
 
+            
 
-        // allCryptos = [...action.payload[0]]
-        const currenciesType = action.payload
             return {
                 ...state,
                 cryptos: {
@@ -70,7 +65,6 @@ const cryptoReducer = (state = initialState, action) => {
                       })
                 },
                 toFilter: [trc20, bep20, erc20],
-                // currencies: Object.keys(trc20.btc)
             }
         case "GET_CRYPTO_INFO":
             return {
@@ -81,13 +75,15 @@ const cryptoReducer = (state = initialState, action) => {
             console.log("ENTRO BIEN")
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
             console.log(res)
-            
+            console.log(action.payload)
             return {
                 ...state,
-                favCrypto: res
+                favCrypto: res,
+                currencies: action.payload
             }
         case "ADD_TO_FAV":
             if (action.payload.amount === 0) console.log("soy 0")
+            // if(state.favCrypto.indexOf(action.payload) >= 1) console.log("ESTAS QUERIENDO AGREGAR UNA MIMSA MONEDITA")
             const result = state.favCrypto.concat(action.payload)
             localStorage.setItem("cryptoFav", JSON.stringify(result))
 
@@ -154,14 +150,12 @@ const cryptoReducer = (state = initialState, action) => {
                 // return state
             }
             case "CHANGE_CURRENCY":
-                if(action.payload === "USD" || action.payload ==="EUR" || action.payload ==="AED") {
                     console.log("reducer currency:",action.payload)
                     return {
                         ...state,
                         currency: action.payload
                     }
 
-                }
         default:
             return state
 
