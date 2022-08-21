@@ -64,6 +64,7 @@ const [amount, setAmount] = useState("")
             <h1>{cryptoDetail.coin}</h1>
             <h2>{`[ ${cryptoDetail.ticker} ]`}</h2>
             <img src={cryptoDetail.logo} className='justify-center max-w-sm m-10'/>
+            <h2>Chain: {crypto}</h2>
             <h3>Price: {currency} {cryptoDetail.prices[currency]}</h3>
 
 

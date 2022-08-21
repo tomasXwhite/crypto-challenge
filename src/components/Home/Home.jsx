@@ -40,7 +40,7 @@ export default function Home() {
 
     }
 
-    const currencies = ["USD", "EUR", "AED"]
+    const currencies = ["USD", "EUR", "AED", ]
     return (
         <div>
             <h1 className="text-5xl font-bold underline mb-3">FAVOURITE CRYPTO LIST</h1>
@@ -75,7 +75,7 @@ optional={"Select currency"}
                             return (
 
                                 <CryptoCard
-                                    key={c.crypto.network_fee_estimation}
+                                    key={`${c.crypto.ticker}-${c.crypto.type}`}
                                     coin={c.crypto.coin}
                                     price={c.crypto.prices[currency]}
                                     logo={c.crypto.logo}

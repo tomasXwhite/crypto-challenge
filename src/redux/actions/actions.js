@@ -11,40 +11,9 @@ export const getCryptos = async (dispatch) => {
     let result = await axios.get(`https://api.cryptapi.io/info/`)
     result = await result.data
 
-    let bep20 = []
-    let trc20 = []
-    let erc20 = []
-
-
-    for(let prop in result) {
-         if(prop === "bep20") {
-            let obj = result[prop]
-           for(let cryp in obj) {
-            obj[cryp].type = "bep20"
-            bep20.push(obj[cryp])
-           }
-        } else if(prop === "trc20") {
-            let obj = result[prop]
-            for(let cryp in obj) {
-            obj[cryp].type = "trc20"
-            if(bep20.length>3) {
-                
-                trc20.push(obj[cryp])
-            } else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
-            if(bep20.includes("ada")) console.log("SI INCLUYE")
-        }
-        } else if(prop === "erc20") {
-            let obj = result[prop]
-            for(let cryp in obj) {
-            obj[cryp].type = "erc20"
-            if(!bep20.includes(cryp) && !trc20.includes(cryp)) erc20.push(obj[cryp])
-            else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
-            }
-        } 
     
-    }
     
-    result = [trc20, bep20, erc20]
+    // result = [trc20, bep20, erc20]
     console.log(result)
 
 

@@ -69,12 +69,12 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
 
 
     const customContentStyle = {
-        width: '85%',
-        maxHeight: '80%',
+        // width: '85%',
+        // maxHeight: '80%',
         // display: 'flex',
         // flexDirection: 'row',
         // position: relative,
-        maxHeight:"auto",
+        // maxHeight:"auto",
         
 
         
@@ -93,7 +93,8 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
         }}
-        style={customContentStyle}
+        // style={customContentStyle}
+        className='h-modal overflow-y-auto overflow-x-none mb-10 min-w-modal flex '
       >
         {/* <Browser 
 
@@ -114,7 +115,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
             />
             </DialogHeader>
 
-        <DialogBody divider className='flex-1 flex flex-row gap-7  items-center'>
+        <DialogBody divider className='flex-1 flex flex-row flex-wrap gap-7 items-center '>
          {
              cryptos[filter]?.length > 0 ?
              // console.log(favCrypto)
@@ -122,21 +123,20 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
                  // let price = c.prices ? c.prices[currency] : null
                  return (
                      <Link to={`/home/info/${c.type}?${c.ticker}`}>
-                          <Card className="w-40 flex h-80 m-3">
-      <CardHeader  className="relative h-56">
+                          <Card className="w-40 flex h-80 m-3  ">
+      <CardHeader className=" flex h-56 mt-4 p-3 justify-center shadow-none">
         <img
           src={c.logo}
-        //   alt="img-blur-shadow"
-          className="h-full w-full"
+          className=" max-w-full max-h-full items-center "
         />
       </CardHeader>
       <CardBody className="text-center">
-        <Typography variant="h5" className="mb-2">
+        <Typography variant="h5" className="mt-3">
           {`${c.coin} (${c.ticker})`}
         </Typography>
       </CardBody>
-      <CardFooter divider className="flex items-center justify-between py-1">
-        <Typography variant="small">{currency} {c.prices[currency]}</Typography>
+      <CardFooter divider className="flex items-center justify-center py-1">
+        <Typography variant="small" className='flex justify-around '>{currency} {c.prices[currency]}</Typography>
         <Typography variant="small" color="gray" className="flex gap-1">
           <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
           {c.type}

@@ -12,22 +12,65 @@ const initialState = {
     },
     toFilter: [],
     favCrypto: [],
-    currency: "USD"
+    currency: "USD",
+    currencies: []
 }
 
 
 const cryptoReducer = (state = initialState, action) => {
     switch (action.type) {
         case "GET_CRYPTOS":
+            const response = action.payload
+
+            let bep20 = []
+            let trc20 = []
+            let erc20 = []
+        
+        
+            for(let prop in response) {
+                 if(prop === "bep20") {
+                    let obj = response[prop]
+                   for(let cryp in obj) {
+                    obj[cryp].type = "bep20"
+                    bep20.push(obj[cryp])
+                   }
+                } else if(prop === "trc20") {
+                    let obj = response[prop]
+                    for(let cryp in obj) {
+                    obj[cryp].type = "trc20"
+                    if(bep20.length>22) {
+                        
+                        trc20.push(obj[cryp])
+                    } else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
+                    if(bep20.indexOf(obj[cryp]) < 1) console.log("SI INCLUYE")
+                }
+                } else if(prop === "erc20") {
+                    let obj = response[prop]
+                    for(let cryp in obj) {
+                    obj[cryp].type = "erc20"
+                    if(!bep20.includes(cryp) && !trc20.includes(cryp)) erc20.push(obj[cryp])
+                    else console.log("EL ELEMENTO", cryp, "ESTA REPETIDO")
+                    }
+                } 
+            
+            }
+            const all = [...trc20, ...bep20, ...erc20]
+
+
+        // allCryptos = [...action.payload[0]]
+        const currenciesType = action.payload
             return {
                 ...state,
                 cryptos: {
-                    trc20: action.payload[0],
-                    bep20: action.payload[1],
-                    erc20: action.payload[2],
-                    all: [...action.payload[0], ...action.payload[1], ...action.payload[2]]
+                    trc20: trc20.filter((c) => !bep20.indexOf(c)),
+                    bep20: bep20,
+                    erc20: erc20,
+                    all: all.filter((item,index)=>{
+                        return all.indexOf(item) === index;
+                      })
                 },
-                toFilter: action.payload
+                toFilter: [trc20, bep20, erc20],
+                // currencies: Object.keys(trc20.btc)
             }
         case "GET_CRYPTO_INFO":
             return {
