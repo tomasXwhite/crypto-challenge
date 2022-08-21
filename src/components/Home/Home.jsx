@@ -43,14 +43,14 @@ export default function Home() {
     const currencies = ["USD", "EUR", "AED"]
     return (
         <div>
-
-            <h1 className="text-3xl font-bold underline">FAVOURITE CRYPTO LIST</h1>
+            <h1 className="text-5xl font-bold underline mb-3">FAVOURITE CRYPTO LIST</h1>
             {/* <Link to='/home/browser' > */}
                 <div>
                     Click here to add cryptos to FAV {"<3"}
                 </div>
                 
                 
+            <div className="flex flex-row justify-center m-2 p-2 gap-2">
                 
             {/* </Link> */}
             <br></br>
@@ -65,8 +65,8 @@ handle={handleCurrency}
 arr={currencies}
 optional={"Select currency"}
 />
+</div>
      
-
             <div className="flex flex-row justify-center">
                 {
 
@@ -80,7 +80,7 @@ optional={"Select currency"}
                                     price={c.crypto.prices[currency]}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
-                                    ticker={c.ticker}
+                                    ticker={c.crypto.ticker}
 
                                 />
 

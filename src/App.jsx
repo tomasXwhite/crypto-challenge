@@ -4,6 +4,7 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Browser from './components/Browser/Browser'
 import CryptoPopUp from './components/CryptoPopUp/CryptoPopUp'
+import Spinner from './components/Spinner/Spinner'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
     <Route exact path='/home' component={Home} />
     <Route exact path='/home/browser' component={Browser}/>
     <Route exact path='/home/info/:crypto' component={CryptoPopUp}/>
+    <Route exact path='/home/spinner' component={Spinner}/>
    </div>
   )
 }
