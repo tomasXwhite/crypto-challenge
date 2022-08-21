@@ -19,6 +19,8 @@ import { getCryptos, filterCrypto } from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
 import CryptoCard from "../CryptoCard/cryptoCard";
 import MySelector from "../Selector/Selector";
+import "./fragment.css"
+import Spinner from "../Spinner/Spinner";
   
 
 export default function MyFragment({coin, price, logo, ticker, type}) {
@@ -67,19 +69,22 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
 
 
     const customContentStyle = {
-        width: '80%',
+        width: '85%',
         maxHeight: '80%',
         // display: 'flex',
         // flexDirection: 'row',
+        // position: relative,
+        maxHeight:"auto",
+        
 
         
         maxWidth: 'none',
       };
 
     return (
-        <Fragment>
-      <Button onClick={handleOpen} variant="gradient">
-        {`OPEN ME! `}
+        <Fragment >
+      <Button onClick={handleOpen} variant="gradient" className='mb-3'>
+        {`SEARCH NOW `}
       </Button>
       <Dialog
         open={open}
@@ -93,7 +98,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
         {/* <Browser 
 
         /> */}
-
+<div className='drop-shadow-2xl'>
         <DialogHeader>
             <h2>Search a new Crypto!</h2>
 
@@ -109,7 +114,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
             />
             </DialogHeader>
 
-        <DialogBody divider>
+        <DialogBody divider className='flex-1 flex flex-row gap-7  items-center'>
          {
              cryptos[filter]?.length > 0 ?
              // console.log(favCrypto)
@@ -151,7 +156,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
                  )
              })
 
-             : <p>Loading . . . </p>
+             : <Spinner />
      }
         </DialogBody>
 
@@ -169,6 +174,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
             <span>Confirm</span>
           </Button>
         </DialogFooter>
+      </div>
       </Dialog>
     </Fragment>
     )

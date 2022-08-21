@@ -1,4 +1,5 @@
 import axios from "axios"
+import Swal from "sweetalert2";
 
 const GET_CRYPTO_INFO = "GET_CRYPTO_INFO"
 const ADD_TO_FAV = "ADD_TO_FAV"
@@ -57,11 +58,25 @@ export const getCryptos = async (dispatch) => {
 export const addToFav = (crypto, amount) => async (dispatch) => {
     if(!crypto && !amount) return dispatch({type: "GET_FAV"})
     console.log(crypto, amount)
+    Swal.fire({
+        icon: "success",
+        title: 'Added crypto to fav list successfully',
+        text: 'Thanks!',
+        background: "#4c4d4c",
+        color: "white",
+      });
     return dispatch({type: "ADD_TO_FAV", payload: {crypto, amount}})
     
 }
 export const deleteFav = (crypto) => async (dispatch) => {
     console.log(crypto)
+    Swal.fire({
+        icon: "info",
+        title: 'Deleted crypto from list successfully',
+        text: 'Thanks!',
+        background: "rgba(121, 148, 153, 0.97)",
+        color: "white",
+      });
     return dispatch({type: "DELETE_FAV", payload: crypto})
 }
 export const getCryptoInfo = (chain, crypto) => async (dispatch) => {
