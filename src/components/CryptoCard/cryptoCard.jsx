@@ -15,9 +15,9 @@ export default function CryptoCard({coin, price, logo, amount, ticker}) {
 
 
     return(
-        <div>
+        <div className='border-2 rounded-xl shadow-sm m-2'>
             <h2>{`${coin} (${ticker})`}</h2>
-            <img src={logo}/>
+            <img src={logo} className='w-40 p-10 justify-center'/>
             {
                 price ?
                 <h4>Price:  {currency} {price}</h4>
@@ -32,7 +32,7 @@ export default function CryptoCard({coin, price, logo, amount, ticker}) {
             {
                 logo ?
                 <div> 
-                <p>Delete from fav</p><button onClick={() => handleDelete()}>X</button>
+                <button onClick={() => handleDelete()}>X</button><p>Delete from fav</p>
                 <br></br>
                 </div>
                 : null
