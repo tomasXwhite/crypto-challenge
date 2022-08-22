@@ -72,9 +72,10 @@ const cryptoReducer = (state = initialState, action) => {
             }
         case "GET_FAV":
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
+            console.log(res)
             return {
                 ...state,
-                favCrypto: res,
+                favCrypto: res ? res :state.favCrypto ,
                 currencies: action.payload
             }
         case "ADD_TO_FAV":
@@ -94,7 +95,6 @@ const cryptoReducer = (state = initialState, action) => {
                 let result = []
                 state.favCrypto.forEach((c) => {
                     if(c.crypto.coin===action.payload.crypto.coin && c.type === action.payload.type ) already=true
-    
                 })
                 if(already===false) {
                     result = state.favCrypto.concat(action.payload)
