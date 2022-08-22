@@ -72,7 +72,6 @@ const cryptoReducer = (state = initialState, action) => {
             }
         case "GET_FAV":
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
-            console.log(res)
             return {
                 ...state,
                 favCrypto: res ? res :state.favCrypto ,
