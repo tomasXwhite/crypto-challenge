@@ -1,19 +1,16 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
-// import { getFavCrypto } from "../../redux/actions/actions"
 import { useEffect, useState, useRef, Fragment } from "react"
 import CryptoCard from "../CryptoCard/cryptoCard"
-import { Link } from "react-router-dom"
 import { addToFav, changeCurrency } from "../../redux/actions/actions"
 import MyFragment from "../Fragment/Fragment"
-
-
-
-
 import MySelector from "../Selector/Selector"
 
 
+
+
 export default function Home() {
+
     const firstRenderRef = useRef(true);
     const { favCrypto, currency, currencies } = useSelector((state) => state)
     const dispatch = useDispatch()
@@ -21,7 +18,7 @@ export default function Home() {
 
 
     useEffect(() => {
-        console.log(firstRenderRef.current)
+        //el condicional es por el useStrict de react, que hace que se desmonte y monte el componente entrando dos veces al didMount.
         if (firstRenderRef.current) {
             firstRenderRef.current = false;
             return;
@@ -29,6 +26,7 @@ export default function Home() {
         dispatch(addToFav())
 
     }, [])
+
     useEffect(() => {
         dispatch(changeCurrency(curren))
     }, [curren])
@@ -36,26 +34,19 @@ export default function Home() {
 
     const handleCurrency = (e) => {
         setCurren(e)
-
-
     }
-    const currenciesTest = ["USD", "EUR", "AED",]
-    console.log(currencies)
+
     return (
         <div className='w-full '>
             <h1 className="text-5xl font-bold underline mb-3 p-6 pt-10">FAVOURITE CRYPTO LIST</h1>
             <div>
                 Click here to add cryptos to FAV {"<3"}
             </div>
-
-
             <div className="flex flex-row justify-center m-2 p-2 gap-2 ">
 
                 <br></br>
                 <MyFragment
-
                 />
-
 
                 <MySelector
                     handle={handleCurrency}
@@ -63,12 +54,10 @@ export default function Home() {
                     optional={"Select currency"}
                 />
             </div>
-            {console.log(favCrypto)}
             <hr className='' />
             <br />
-            <div className="flex flex-wrap gap-8 justify-center ">
+            <div className="flex flex-wrap gap-8 justify-center mx-2">
                 {
-
                     favCrypto?.length > 0 ?
                         favCrypto.map(c => {
                             return (
@@ -81,19 +70,11 @@ export default function Home() {
                                     ticker={c.crypto.ticker}
                                     type={c.type}
                                 />
-
                             )
                         })
                         : null
-
                 }
-
             </div>
-
-
-
-
-
         </div>
     )
 }

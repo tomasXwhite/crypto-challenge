@@ -3,13 +3,11 @@ import { Select, Option } from "@material-tailwind/react";
 
 
 
-export default function MySelector({handle, arr, optional}) {
+export default function MySelector({ handle, arr, optional }) {
 
-console.log(arr)
-
-    return(
-        <div className=" border-none focus:ring-0 justify-center align-center mb-2.5 mr-4 hover:none">
-         <Select
+  return (
+    <div className=" border-none focus:ring-0 justify-center align-center mb-2.5 mr-4 hover:none">
+      <Select
         label={optional}
         animate={{
           mount: { y: 0 },
@@ -18,13 +16,13 @@ console.log(arr)
         onChange={(e) => handle(e)}
       >
         {
-            arr.length>0 ?
+          arr.length > 0 ?
             arr.map((e) => {
-                return <Option value={e}>{e}</Option> 
+              return <Option value={e}>{e}</Option>
             })
             : null
         }
       </Select>
     </div>
-    )
+  )
 }

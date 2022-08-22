@@ -22,11 +22,12 @@ const cryptoReducer = (state = initialState, action) => {
         case "GET_CRYPTOS":
             const response = action.payload
 
+            //El obj que llega viene con cryptos y chains que a su vez son obj con cryptos, entonces paso todas las cryptos a arrays
+            // recorriendo los obj y sus chains
+
             let bep20 = []
             let trc20 = []
             let erc20 = []
-            
-
         
             for(let prop in response) {
                  if(prop === "bep20") {
@@ -48,11 +49,8 @@ const cryptoReducer = (state = initialState, action) => {
                     erc20.push(obj[cryp])
                     }
                 } 
-            
             }
             const all = [...trc20, ...bep20, ...erc20]
-
-            
 
             return {
                 ...state,
@@ -66,56 +64,60 @@ const cryptoReducer = (state = initialState, action) => {
                 },
                 toFilter: [trc20, bep20, erc20],
             }
+
         case "GET_CRYPTO_INFO":
             return {
                 ...state,
                 cryptoDetail: action.payload
             }
         case "GET_FAV":
-            // console.log("ENTRO BIEN")
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
-            console.log(res)
-            console.log(action.payload)
             return {
                 ...state,
                 favCrypto: res,
                 currencies: action.payload
             }
         case "ADD_TO_FAV":
-            let already = false
-            let result = []
-            if (action.payload.amount === 0) console.log("soy 0")
-            state.favCrypto.forEach((c) => {
-                // console.log(c.crypto.coin, action.payload.crypto.coin)
-                if(c.crypto.coin===action.payload.crypto.coin && c.type === action.payload.type ) already=true
-
-            })
-            console.log(already)
-            if(already) console.log("FUNCIONAAAAA", already)
-            // console.log(prueba)
-            if(already===false) {
-                result = state.favCrypto.concat(action.payload)
-                localStorage.setItem("cryptoFav", JSON.stringify(result))
-                console.log(result)
-            } else {
-                Swal.fire({
+            //ya está controlado en el componente, pero si de alguna manera llegaran a mandar un valor negativo no se guardaria.  
+            if(action.payload.amount < 0) {
+                return Swal.fire({
                     icon: "error",
-                    title: "Ups... Crypto is already in fav list ",
-                    text: "Delete from fav and add it again",
+                    title: "You can set a negative amount...",
+                    text: "You will be redirected to Home in 5 seconds",
                     background: "#4c4d4c",
                     color: "white",
                   });
+            } else {
+                //verifico si la crypto ya fue agregada a favoritos, en la verificación incluyo la chain ya que las cryptos pueden
+                //adquirirse de manera diferente
+                let already = false
+                let result = []
+                state.favCrypto.forEach((c) => {
+                    if(c.crypto.coin===action.payload.crypto.coin && c.type === action.payload.type ) already=true
+    
+                })
+                if(already===false) {
+                    result = state.favCrypto.concat(action.payload)
+                    localStorage.setItem("cryptoFav", JSON.stringify(result))
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Ups... Crypto is already in Fav list.",
+                        text: "Delete from fav and add it again.  You will be redirected to Home in 5 seconds",
+                        background: "#4c4d4c",
+                        color: "white",
+                      });
+                }
+    
+                return {
+                    ...state,
+                    favCrypto: result
+    
+                } 
             }
-
-            return {
-                ...state,
-                favCrypto: result
-
-            } 
         case "DELETE_FAV":
-            
+            //cuando borro la crypto de la lista, incluyo la condición de si la chain coincide.
             const result2 = state.favCrypto.filter((c) => {
-                console.log("CRYPTO EN POSICION", c.crypto, c.type, "PAYLOAD: ",  action.payload.chain)
                 if(c.crypto.coin === action.payload.crypto && c.type === action.payload.chain) return false
                 else return true
             })
@@ -125,14 +127,11 @@ const cryptoReducer = (state = initialState, action) => {
                 favCrypto: result2
             }
         case "CLEAR_CRYPTO_INFO":
-            console.log("limpiar")
             return {
                 ...state,
                 cryptoDetail: {}
             }
         case "FILTER":
-            console.log("FILTERRRR", action.payload)
-            console.log(state.toFilter)
             if (state.toFilter[0]?.length > 0) {
                 let filtredArr = {
                     trc20: [],
@@ -143,44 +142,31 @@ const cryptoReducer = (state = initialState, action) => {
                 state.cryptos = {
                     trc20: state.toFilter[0].forEach((c) => {
                         if (c.coin.toLowerCase().includes(action.payload.toLowerCase()) || c.ticker.toLowerCase().includes(action.payload.toLowerCase())) filtredArr.trc20.push(c)
-
-                        // c.coin.includes(action.payload) ? filtredArr.trc20.push(c) : null
-
                     }),
                     bep20: state.toFilter[1].forEach((c) => {
                         if (c.coin.toLowerCase().includes(action.payload.toLowerCase()) || c.ticker.toLowerCase().includes(action.payload.toLowerCase())) filtredArr.bep20.push(c)
-                        // c.coin.includes(action.payload) ? filtredArr.bep20.push(c) : null
                     }),
                     erc20: state.toFilter[2].forEach((c) => {
                         if (c.coin.toLowerCase().includes(action.payload.toLowerCase()) || c.ticker.toLowerCase().includes(action.payload.toLowerCase())) filtredArr.erc20.push(c)
-
-                        // c.coin.includes(action.payload) ? filtredArr.erc20.push(c) : null
                     })
                 }
                 filtredArr = {
                     ...filtredArr,
                     all: [...filtredArr.trc20, ...filtredArr.bep20, ...filtredArr.erc20]
                 }
-
-                console.log("filtredArr", filtredArr)
-                // return state
                 return {
                     ...state,
                     cryptos: filtredArr
                 }
-
-
-                // return state
             }
             case "CHANGE_CURRENCY":
-                    console.log("reducer currency:",action.payload)
                     return {
                         ...state,
                         currency: action.payload
                     }
 
-        default:
-            return state
+            default:
+                return state
 
 
 
