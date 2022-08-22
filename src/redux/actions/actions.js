@@ -17,6 +17,8 @@ export const getCryptos = async (dispatch) => {
 }
 
 export const addToFav = (crypto, amount, type) => async (dispatch) => {
+    //reutilizo la accion, al montar el componente se trae la info de btc (crypto que siempre esta por ser la mas conocida,
+    //y en del obj prices que contiene todas las divisas con sus valores me traigo solo los nombres, entonces no tengo necesidad de hardcodear) 
     if (!crypto && !amount && !type) {
         let prices = await axios.get('https://api.cryptapi.io/btc/info/')
         prices = await prices.data.prices
