@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getCryptoInfo, clearCryptoInfo } from "../../redux/actions/actions"
 import { useParams } from "react-router-dom"
-import "../Browser/browser.css"
 import { addToFav } from "../../redux/actions/actions"
 import { useHistory, useLocation } from "react-router-dom";
 import { IconButton, Input, Button } from "@material-tailwind/react"
