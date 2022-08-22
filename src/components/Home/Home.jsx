@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 // import { getFavCrypto } from "../../redux/actions/actions"
-import { useEffect, useState, useRef, Fragment} from "react"
+import { useEffect, useState, useRef, Fragment } from "react"
 import CryptoCard from "../CryptoCard/cryptoCard"
 import { Link } from "react-router-dom"
 import { addToFav, changeCurrency } from "../../redux/actions/actions"
@@ -39,36 +39,33 @@ export default function Home() {
 
 
     }
-    const currenciesTest = ["USD", "EUR", "AED", ]
+    const currenciesTest = ["USD", "EUR", "AED",]
     console.log(currencies)
     return (
-        <div className='w-full'>
-            <h1 className="text-5xl font-bold underline mb-3 p-6 pt-1">FAVOURITE CRYPTO LIST</h1>
-            {/* <Link to='/home/browser' > */}
-                <div>
-                    Click here to add cryptos to FAV {"<3"}
-                </div>
-                
-                
-            <div className="flex flex-row justify-center m-2 p-2 gap-2">
-                
-            {/* </Link> */}
-            <br></br>
-                <MyFragment 
+        <div className='w-full '>
+            <h1 className="text-5xl font-bold underline mb-3 p-6 pt-10">FAVOURITE CRYPTO LIST</h1>
+            <div>
+                Click here to add cryptos to FAV {"<3"}
+            </div>
 
-                
+
+            <div className="flex flex-row justify-center m-2 p-2 gap-2 ">
+
+                <br></br>
+                <MyFragment
+
                 />
 
 
-<MySelector 
-handle={handleCurrency}
-arr={currencies}
-optional={"Select currency"}
-/>
-</div>
-     {console.log(favCrypto)}
-     <hr className=''/>
-     <br />
+                <MySelector
+                    handle={handleCurrency}
+                    arr={currencies}
+                    optional={"Select currency"}
+                />
+            </div>
+            {console.log(favCrypto)}
+            <hr className='' />
+            <br />
             <div className="flex flex-wrap gap-8 justify-center ">
                 {
 

@@ -14,6 +14,9 @@ module.exports = withMT({
         modal: "90vw"
       }
     },
+    screens: {
+      'mobile': {'min': '200px', 'max': '600px'},
+    }
   },
   plugins: [],
 })

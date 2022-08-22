@@ -56,26 +56,26 @@ const [amount, setAmount] = useState("")
     }
     return (
         <div>
-            <Button onClick={() => handleReturn()} className='p-5 mb-3'>{`<= Home`}</Button>
+            <Button onClick={() => handleReturn()} className='p-5 mb-3 mt-4'>{`<= Home`}</Button>
             {
         cryptoDetail.logo ? 
         <div>
-            <h1>Crypto info:</h1>
+            <h1 className='mobile:text-xl'>Crypto info:</h1>
             <h1>{cryptoDetail.coin}</h1>
             <h2>{`[ ${cryptoDetail.ticker} ]`}</h2>
-            <img src={cryptoDetail.logo} className='justify-center max-w-sm m-6 align-center relative '/>
+            <img src={cryptoDetail.logo} className='justify-center max-w-sm m-6 align-center relative m-auto mt-4 mb-9'/>
             <h2>Chain: {crypto}</h2>
             <h3>Price: {currency} {cryptoDetail.prices[currency]}</h3>
 
 
             <br></br>
             <h3>Enter your {cryptoDetail.ticker} amount:</h3>
-            <div className='flex flex-row'>
+            <div className='flex flex-row w-80 justify-center m-auto mt-5 mobile:flex-col mobile:gap-2 pb-5'>
             {/* <input type='number' placeholder={`${cryptoDetail.coin}`} className='search' onChange={(e) => handleAmount(e)} value={amount}/> */}
             <Input variant={cryptoDetail.ticker} label={cryptoDetail.ticker} type='number'  className='search' onChange={(e) => handleAmount(e)} value={amount}/>
             {/* <button onClick={(e) => handleFav(e)}>+</button> */}
             <button 
-            class="relative inline-flex items-center justify-center p-0.5 mb-9 mr-2 ml-3 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+            class="relative inline-flex items-center justify-center ml-4 p-0.5 mobile:m-auto overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
             onClick={(e) => handleFav(e)}
             >
   <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-lg group-hover:bg-opacity-0">

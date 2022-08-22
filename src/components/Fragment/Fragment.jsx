@@ -79,20 +79,19 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
           unmount: { scale: 0.9, y: -100 },
         }}
         // style={customContentStyle}
-        className='h-modal overflow-y-auto overflow-x-none mb-10 min-w-modal flex justify-center'
+        className='h-modal overflow-y-auto overflow-x-none mb-10 min-w-modal flex justify-center  mobile:w-screen'
       >
         {/* <Browser 
 
         /> */}
-<div className='drop-shadow-2xl'>
-        <DialogHeader className="flex flex-row gap-2 align-center ">
+<div className='drop-shadow-2xl mobile:w-full '>
+        <DialogHeader className="flex flex-row gap-2 m-auto align-center mobile:flex-col mobile:gap-0 ">
             <h2 className="justify-center align-center ml-4">Search a Crypto!</h2>
 
             <br></br>
             <Input 
             label='crypto' 
             onChange={(e) => handleCryptoChange(e)} 
-            className=''
             />
             <br></br>
 
@@ -105,7 +104,7 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
             />
             </DialogHeader>
 
-        <DialogBody divider className='flex-1 flex flex-row flex-wrap gap-7 items-center justify-center'>
+        <DialogBody divider className='flex-1 flex flex-row flex-wrap gap-7 items-center justify-center '>
          {
              cryptos[filter]?.length > 0 ?
              // console.log(favCrypto)
@@ -113,11 +112,11 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
                  // let price = c.prices ? c.prices[currency] : null
                  return (
                      <Link to={`/home/info/${c.type}?${c.ticker}`}>
-                          <Card className="w-56 shadow-lg flex h-80 m-3 border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
-      <CardHeader className=" flex h-56 mt-4 p-3 justify-center shadow-none">
+                          <Card className="w-56 shadow-lg flex h-80 m-3 border-gray-600  rounded-lg transform transition duration-500 hover:scale-110 mobile:w-40 mobile:h-60">
+      <CardHeader className=" flex h-56 mt-4 p-3 justify-center shadow-none ">
         <img
           src={c.logo}
-          className=" max-w-full max-h-full items-center "
+          className=" max-w-full max-h-full items-center mobile:h-20 mobile:w-20"
         />
       </CardHeader>
       <CardBody className="text-center">
@@ -125,24 +124,15 @@ export default function MyFragment({coin, price, logo, ticker, type}) {
           {`${c.coin} (${c.ticker})`}
         </Typography>
       </CardBody>
-      <CardFooter divider className="flex items-center justify-center py-1 gap-10">
+      <CardFooter divider className="flex items-center justify-center py-1 gap-10 mobile:gap-2">
         <Typography variant="small" className='flex justify-around '>{currency} {c.prices[currency]}</Typography>
         <Typography variant="small" color="gray" className="flex gap-1">
-          <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
+          <i className="fas fa-map-marker-alt fa-sm mt-[3px] " />
           {c.type.toUpperCase()}
         </Typography>
       </CardFooter>
     </Card>
                      </Link>
-                     // <MyFragment 
-                     // key={c.coin}
-                     // coin={c.coin}
-                     // ticker={c.ticker}
-                     // logo={c.logo}
-                     // price={c.prices ? c.prices[currency] : null}
-                     // type={c.type}
-                     
-                     // />
                  )
              })
 
