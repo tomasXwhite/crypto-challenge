@@ -6,7 +6,17 @@ module.exports = withMT({
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        modal: "90vh"
+      },
+      minWidth: {
+        modal: "90vw"
+      }
+    },
+    screens: {
+      'mobile': {'min': '200px', 'max': '600px'},
+    }
   },
   plugins: [],
 })

@@ -9,7 +9,7 @@ import Spinner from './components/Spinner/Spinner'
 function App() {
 
   return (
-   <div>
+   <div className='beutyBg '>
     <Route exact path='/home' component={Home} />
     <Route exact path='/home/browser' component={Browser}/>
     <Route exact path='/home/info/:crypto' component={CryptoPopUp}/>
