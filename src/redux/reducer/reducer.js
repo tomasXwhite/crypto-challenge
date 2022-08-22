@@ -1,5 +1,5 @@
 
-
+import Swal from "sweetalert2"
 
 
 const initialState = {
@@ -72,7 +72,7 @@ const cryptoReducer = (state = initialState, action) => {
                 cryptoDetail: action.payload
             }
         case "GET_FAV":
-            console.log("ENTRO BIEN")
+            // console.log("ENTRO BIEN")
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
             console.log(res)
             console.log(action.payload)
@@ -82,10 +82,30 @@ const cryptoReducer = (state = initialState, action) => {
                 currencies: action.payload
             }
         case "ADD_TO_FAV":
+            let already = false
+            let result = []
             if (action.payload.amount === 0) console.log("soy 0")
-            // if(state.favCrypto.indexOf(action.payload) >= 1) console.log("ESTAS QUERIENDO AGREGAR UNA MIMSA MONEDITA")
-            const result = state.favCrypto.concat(action.payload)
-            localStorage.setItem("cryptoFav", JSON.stringify(result))
+            state.favCrypto.forEach((c) => {
+                // console.log(c.crypto.coin, action.payload.crypto.coin)
+                if(c.crypto.coin===action.payload.crypto.coin && c.type === action.payload.type ) already=true
+
+            })
+            console.log(already)
+            if(already) console.log("FUNCIONAAAAA", already)
+            // console.log(prueba)
+            if(already===false) {
+                result = state.favCrypto.concat(action.payload)
+                localStorage.setItem("cryptoFav", JSON.stringify(result))
+                console.log(result)
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Ups... Crypto is already in fav list ",
+                    text: "Delete from fav and add it again",
+                    background: "#4c4d4c",
+                    color: "white",
+                  });
+            }
 
             return {
                 ...state,
@@ -93,7 +113,12 @@ const cryptoReducer = (state = initialState, action) => {
 
             } 
         case "DELETE_FAV":
-            const result2 = state.favCrypto.filter((c) => c.crypto.coin !== action.payload)
+            
+            const result2 = state.favCrypto.filter((c) => {
+                console.log("CRYPTO EN POSICION", c.crypto, c.type, "PAYLOAD: ",  action.payload.chain)
+                if(c.crypto.coin === action.payload.crypto && c.type === action.payload.chain) return false
+                else return true
+            })
             localStorage.setItem("cryptoFav", JSON.stringify(result2))
             return {
                 ...state,
@@ -108,8 +133,6 @@ const cryptoReducer = (state = initialState, action) => {
         case "FILTER":
             console.log("FILTERRRR", action.payload)
             console.log(state.toFilter)
-            // console.log(state.cryptos.bep20)
-            // console.log(state.toFilter)
             if (state.toFilter[0]?.length > 0) {
                 let filtredArr = {
                     trc20: [],

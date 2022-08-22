@@ -36,7 +36,7 @@ const [amount, setAmount] = useState("")
 
     const handleFav = (e) => {
         // if(amount === "") setAmount(0)
-        dispatch(addToFav(cryptoDetail, amount === "" ? 0 : amount))
+        dispatch(addToFav(cryptoDetail, amount === "" ? 0 : amount, crypto))
         setAmount(" ")
         
 
@@ -63,7 +63,7 @@ const [amount, setAmount] = useState("")
             <h1>Crypto info:</h1>
             <h1>{cryptoDetail.coin}</h1>
             <h2>{`[ ${cryptoDetail.ticker} ]`}</h2>
-            <img src={cryptoDetail.logo} className='justify-center max-w-sm m-10'/>
+            <img src={cryptoDetail.logo} className='justify-center max-w-sm m-6 align-center relative '/>
             <h2>Chain: {crypto}</h2>
             <h3>Price: {currency} {cryptoDetail.prices[currency]}</h3>
 

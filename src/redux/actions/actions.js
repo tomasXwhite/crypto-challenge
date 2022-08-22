@@ -10,28 +10,19 @@ const GET_CRYPTOS = "GET_CRYPTOS"
 export const getCryptos = async (dispatch) => {
     let result = await axios.get(`https://api.cryptapi.io/info/`)
     result = await result.data
-
-    
-    
-    // result = [trc20, bep20, erc20]
-    console.log(result)
-
-
-
-
     return dispatch({type: "GET_CRYPTOS", payload: result})
 }
 
 
 
-export const addToFav = (crypto, amount) => async (dispatch) => {
-    if(!crypto && !amount) {
+export const addToFav = (crypto, amount, type) => async (dispatch) => {
+    if(!crypto && !amount && !type) {
         let prices = await axios.get('https://api.cryptapi.io/btc/info/')
         prices = await prices.data.prices
         prices = Object.keys(prices)
         return dispatch({type: "GET_FAV", payload: prices})
     }
-    console.log(crypto, amount)
+    console.log("aAAAAAAAAAAAAAAAAAÀ,",crypto, amount, type)
     Swal.fire({
         icon: "success",
         title: 'Added crypto to fav list successfully',
@@ -39,10 +30,10 @@ export const addToFav = (crypto, amount) => async (dispatch) => {
         background: "#4c4d4c",
         color: "white",
       });
-    return dispatch({type: "ADD_TO_FAV", payload: {crypto, amount}})
+    return dispatch({type: "ADD_TO_FAV", payload: {crypto, amount, type}})
     
 }
-export const deleteFav = (crypto) => async (dispatch) => {
+export const deleteFav = (crypto, chain) => async (dispatch) => {
     console.log(crypto)
     Swal.fire({
         icon: "info",
@@ -51,7 +42,8 @@ export const deleteFav = (crypto) => async (dispatch) => {
         background: "rgba(121, 148, 153, 0.97)",
         color: "white",
       });
-    return dispatch({type: "DELETE_FAV", payload: crypto})
+      console.log(crypto, "AND", chain)
+    return dispatch({type: "DELETE_FAV", payload: {crypto, chain}})
 }
 export const getCryptoInfo = (chain, crypto) => async (dispatch) => {
     console.log("CRYPTO DETAIL", crypto)

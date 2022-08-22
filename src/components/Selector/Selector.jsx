@@ -8,7 +8,7 @@ export default function MySelector({handle, arr, optional}) {
 console.log(arr)
 
     return(
-        <div className=" border-none focus:ring-0 justify-center align-center mb-2.5 mr-4">
+        <div className=" border-none focus:ring-0 justify-center align-center mb-2.5 mr-4 hover:none">
          <Select
         label={optional}
         animate={{

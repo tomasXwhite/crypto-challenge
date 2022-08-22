@@ -42,8 +42,8 @@ export default function Home() {
     const currenciesTest = ["USD", "EUR", "AED", ]
     console.log(currencies)
     return (
-        <div>
-            <h1 className="text-5xl font-bold underline mb-3">FAVOURITE CRYPTO LIST</h1>
+        <div className='w-full'>
+            <h1 className="text-5xl font-bold underline mb-3 p-6 pt-1">FAVOURITE CRYPTO LIST</h1>
             {/* <Link to='/home/browser' > */}
                 <div>
                     Click here to add cryptos to FAV {"<3"}
@@ -66,8 +66,10 @@ arr={currencies}
 optional={"Select currency"}
 />
 </div>
-     
-            <div className="flex flex-wrap gap-8 justify-center">
+     {console.log(favCrypto)}
+     <hr className=''/>
+     <br />
+            <div className="flex flex-wrap gap-8 justify-center ">
                 {
 
                     favCrypto?.length > 0 ?
@@ -80,6 +82,7 @@ optional={"Select currency"}
                                     logo={c.crypto.logo}
                                     amount={c.amount}
                                     ticker={c.crypto.ticker}
+                                    type={c.type}
                                 />
 
                             )
