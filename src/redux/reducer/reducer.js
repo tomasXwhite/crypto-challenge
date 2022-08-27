@@ -28,27 +28,27 @@ const cryptoReducer = (state = initialState, action) => {
             let bep20 = []
             let trc20 = []
             let erc20 = []
-        
-            for(let prop in response) {
-                 if(prop === "bep20") {
+
+            for (let prop in response) {
+                if (prop === "bep20") {
                     let obj = response[prop]
-                   for(let cryp in obj) {
-                    obj[cryp].type = "bep20"
-                    bep20.push(obj[cryp])
-                   }
-                } else if(prop === "trc20") {
-                    let obj = response[prop]
-                    for(let cryp in obj) {
-                    obj[cryp].type = "trc20"
-                        trc20.push(obj[cryp])
-                }
-                } else if(prop === "erc20") {
-                    let obj = response[prop]
-                    for(let cryp in obj) {
-                    obj[cryp].type = "erc20"
-                    erc20.push(obj[cryp])
+                    for (let cryp in obj) {
+                        obj[cryp].type = "bep20"
+                        bep20.push(obj[cryp])
                     }
-                } 
+                } else if (prop === "trc20") {
+                    let obj = response[prop]
+                    for (let cryp in obj) {
+                        obj[cryp].type = "trc20"
+                        trc20.push(obj[cryp])
+                    }
+                } else if (prop === "erc20") {
+                    let obj = response[prop]
+                    for (let cryp in obj) {
+                        obj[cryp].type = "erc20"
+                        erc20.push(obj[cryp])
+                    }
+                }
             }
             const all = [...trc20, ...bep20, ...erc20]
 
@@ -58,9 +58,9 @@ const cryptoReducer = (state = initialState, action) => {
                     trc20: trc20.filter((c) => !bep20.indexOf(c)),
                     bep20: bep20,
                     erc20: erc20,
-                    all: all.filter((item,index)=>{
+                    all: all.filter((item, index) => {
                         return all.indexOf(item) === index;
-                      })
+                    })
                 },
                 toFilter: [trc20, bep20, erc20],
             }
@@ -72,30 +72,31 @@ const cryptoReducer = (state = initialState, action) => {
             }
         case "GET_FAV":
             const res = JSON.parse(localStorage.getItem("cryptoFav"))
+            console.log(res)
             return {
                 ...state,
-                favCrypto: res ? res :state.favCrypto ,
+                favCrypto: res ? res : state.favCrypto,
                 currencies: action.payload
             }
         case "ADD_TO_FAV":
             //ya está controlado en el componente, pero si de alguna manera llegaran a mandar un valor negativo no se guardaria.  
-            if(action.payload.amount < 0) {
+            if (action.payload.amount < 0) {
                 return Swal.fire({
                     icon: "error",
                     title: "You can set a negative amount...",
                     text: "You will be redirected to Home in 5 seconds",
                     background: "#4c4d4c",
                     color: "white",
-                  });
+                });
             } else {
                 //verifico si la crypto ya fue agregada a favoritos, en la verificación incluyo la chain ya que las cryptos pueden
                 //adquirirse de manera diferente
                 let already = false
                 let result = []
                 state.favCrypto.forEach((c) => {
-                    if(c.crypto.coin===action.payload.crypto.coin && c.type === action.payload.type ) already=true
+                    if (c.crypto.coin === action.payload.crypto.coin && c.type === action.payload.type) already = true
                 })
-                if(already===false) {
+                if (already === false) {
                     result = state.favCrypto.concat(action.payload)
                     localStorage.setItem("cryptoFav", JSON.stringify(result))
                 } else {
@@ -105,19 +106,19 @@ const cryptoReducer = (state = initialState, action) => {
                         text: "Delete from fav and add it again.  You will be redirected to Home in 5 seconds",
                         background: "#4c4d4c",
                         color: "white",
-                      });
+                    });
                 }
-    
+
                 return {
                     ...state,
                     favCrypto: result
-    
-                } 
+
+                }
             }
         case "DELETE_FAV":
             //cuando borro la crypto de la lista, incluyo la condición de si la chain coincide.
             const result2 = state.favCrypto.filter((c) => {
-                if(c.crypto.coin === action.payload.crypto && c.type === action.payload.chain) return false
+                if (c.crypto.coin === action.payload.crypto && c.type === action.payload.chain) return false
                 else return true
             })
             localStorage.setItem("cryptoFav", JSON.stringify(result2))
@@ -158,14 +159,14 @@ const cryptoReducer = (state = initialState, action) => {
                     cryptos: filtredArr
                 }
             }
-            case "CHANGE_CURRENCY":
-                    return {
-                        ...state,
-                        currency: action.payload
-                    }
+        case "CHANGE_CURRENCY":
+            return {
+                ...state,
+                currency: action.payload
+            }
 
-            default:
-                return state
+        default:
+            return state
 
 
 
